@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:pokeapi/src/providers/poke_provider.dart';
 
 class DetallePokemonPage extends StatefulWidget {
-  const DetallePokemonPage({super.key, required this.id, this.extras});
+  const DetallePokemonPage({super.key, required this.id, this.extras,  });
 
   final String id;
   final Map? extras;
+  
 
   @override
   _DetallePokemonPageState createState() => _DetallePokemonPageState();
@@ -13,222 +15,336 @@ class DetallePokemonPage extends StatefulWidget {
 
 class _DetallePokemonPageState extends State<DetallePokemonPage> {
   late String ChangeImage;
+  String selectedSection = 'details';
 
-  // Inicializar la variable antes que cargue la pantalla
   @override
   void initState() {
     super.initState();
-   
     ChangeImage = widget.extras?['img'] ??
         'https://img.freepik.com/free-vector/glitch-error-404-page-background_23-2148083447.jpg?t=st=1741201077~exp=1741204677~hmac=7f4799125ec835eedf2222dc7a34eb8ac8a01acc5bedb2ac25473fb55d91b096&w=740';
   }
 
   @override
   Widget build(BuildContext context) {
-    final VertLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green[400],
+        backgroundColor: const Color.fromARGB(255, 7, 218, 229),
         leading: IconButton(
-          onPressed: () {
-            // se agrego para poder cambiar el color del icono de la flecha
-            Navigator.pop(context);
-          },
-           icon: Icon(Icons.arrow_back),
-           color: const Color.fromARGB(255, 253, 253, 253),
-           ),
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.arrow_back),
+          color: Colors.white,
+        ),
         actions: [
           IconButton(
-            icon: Icon(Icons.favorite_border),
-            color: const Color.fromARGB(255, 253, 253, 253),
+            icon: const Icon(Icons.favorite_border),
+            color: Colors.white,
             onPressed: () {},
           ),
         ],
       ),
-      backgroundColor: Colors.green[300],
-  
-      body: SingleChildScrollView(
-        
-              physics: VertLandscape ? AlwaysScrollableScrollPhysics() : NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.all(1.0),
-              child: Column(
-          
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Stack(
+      backgroundColor: const Color(0xFFFFFFFF),
+      body: Expanded(
+        child: Container(
+        width: double.infinity, // Mantiene el ancho igual al tamaño de la pantalla
+        constraints:  BoxConstraints(
+          minHeight: double.infinity, 
+        ),
+          decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/#FFFFFF.jpg'),
+            fit: BoxFit.cover, // Ajusta la imagen para cubrir todo el contenedor
+          ),
+        ),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(0.1),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Imagen del Pokémon
+                Center(
+                  child: Stack(
+                    alignment: Alignment.center,
                     children: [
-                      Center(
-                        child: Container(
-                          width: 240,
-                          height: 240,    
-                          decoration: BoxDecoration( 
+                      Container(
+                        width: 240,
+                        height: 240,
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                             
                           image: DecorationImage(
-                              image: CachedNetworkImageProvider(''),
-                              fit: BoxFit.cover,
-                              
+                            image: CachedNetworkImageProvider(
+                              'https://i.pinimg.com/736x/8c/83/14/8c8314a0e1b76e0c38b7ea04b08eeeee.jpg',
                             ),
-                           // borderRadius: BorderRadius.circular(16),      
-                            ),
+                            fit: BoxFit.cover,
                           ),
+                        ),
                       ),
-                      Center(
-                        child: Container(
-                          width: 220,
-                          height: 220,    
-                          decoration: BoxDecoration( 
+                      Container(
+                        width: 220,
+                        height: 220,
+                        decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                              
                           image: DecorationImage(
-                              image: CachedNetworkImageProvider(ChangeImage),
-                              fit: BoxFit.cover,
-                              
-                            ),
-                           // borderRadius: BorderRadius.circular(16),
-                          
-                              
-                            ),
+                            image: CachedNetworkImageProvider(ChangeImage),
+                            fit: BoxFit.cover,
                           ),
+                        ),
                       ),
-                       // child: Center(
-                       // child: Image.network(
-                        //    'https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/v1/attachments/delivery/asset/0032398f86ea753194c5eeba97eccda2-1627249600/ExportBackgroundnomoveclound/draw-a-pixel-pokemon-battle-background.gif',
-                        //    height: 190,
-                       //     fit: BoxFit.cover,
-                      //    ),
-                    //    )
-                   //   ),
-                 //     Center(
-                //        child: Image.network(
-                 //         ChangeImage,
-                  //        height: 230,
-                   //       fit: BoxFit.cover,
-                   //     ),
-                  //    ),
                     ],
                   ),
-                  SizedBox(height: 16),
-                
-                  // Tipos del Pokémon
-                   Divider(
-                      endIndent: 0.1,
-                       color: const Color.fromARGB(255, 253, 252, 252),
-                         thickness: 0.7,
-                   ),
-                  Text(
-                    ' Tipos',
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: const Color.fromARGB(255, 248, 245, 245),
-                    ),
+                ),
+          
+                const SizedBox(height: 5),
+                Divider(color: Colors.white, thickness: 0.7),
+                Text(
+                  '       Información de ${widget.extras?['name']}',
+                  style: const TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                  Divider(
-                      endIndent: 0.1,
-                       color: const Color.fromARGB(255, 253, 252, 252),
-                         thickness: 0.7,
-                   ),
-                  Wrap(
-                    
-                    spacing: 5,
-                    children: widget.extras?['type']
-                        .map<Widget>((type) => Chip(
-                              label: Text(
-                                type,
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              backgroundColor: _getTypeColor(type),
-                            ))
-                        .toList(),
-                  ),
-                  SizedBox(height: 16),
-
-                  // Sección  para el verde 
-                  Container(
-                   width: MediaQuery.of(context).size.width*0.99,
-                   height: MediaQuery.of(context).size.height*0.99,
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 250, 252, 250), 
-                      borderRadius: BorderRadius.circular(35),
+                ),
+                Divider(color: Colors.white, thickness: 0.7),
+                const SizedBox(height: 16),
+          
+                // Sección de botones para seleccionar información
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          selectedSection = 'pre_evo';
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: selectedSection == 'pre_evo'
+                            ? Colors.blue
+                            : Colors.grey,
+                      ),
+                      child: const Text('Pre Evo'),
                     ),
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Debilidades:',
-                          style: TextStyle(
-                            fontSize: 23,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 33, 215, 236),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Wrap(
-                          spacing: 5,
-                          children: widget.extras?['weaknesses']
-                              .map<Widget>((weakness) => Chip(
-                                    label: Text(
-                                      weakness,
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    backgroundColor: _getTypeColor(weakness),
-                                    //backgroundColor: const Color.fromARGB(255, 220, 80, 239),
-                                  ))
-                              .toList(),
-                        ),
-                        SizedBox(height: 16),
-
-                        // Altura y peso
-                 
-                          Text(
-                            'Altura: ${widget.extras?['height']}',
-                            style: TextStyle(fontSize: 16, color: const Color.fromARGB(255, 17, 17, 17) , fontWeight: FontWeight.bold),
-                          ),
-                      
-                        SizedBox(height: 10),
-              
-                         Text(
-                            'Peso: ${widget.extras?['weight']}',
-                            style: TextStyle(fontSize: 16, color: const Color.fromARGB(255, 17, 17, 17) , fontWeight: FontWeight.bold),
-                            
-                          ),
-            
-                        SizedBox(height: 16),
-
-                        // Candy y spawn time
-                    
-                          Text(
-                            'Candy: ${widget.extras?['candy']}',
-                            style: TextStyle(fontSize: 16, color: const Color.fromARGB(255, 17, 17, 17) , fontWeight: FontWeight.bold),
-                          ),
-      
-                        SizedBox(height: 10),
-                   
-                           Text(
-                            'Candy Count: ${widget.extras?['candy_count'] ?? 'N/A'}',
-                            style: TextStyle(fontSize: 16, color: const Color.fromARGB(255, 17, 17, 17) , fontWeight: FontWeight.bold),
-                          ),
-                      
-                        SizedBox(height: 16),
-                         Text(
-                            'Tiempo de aparición: ${widget.extras?['spawn_time']}',
-                            style: TextStyle(fontSize: 16, color: const Color.fromARGB(255, 17, 17, 17) , fontWeight: FontWeight.bold),
-                          ),
-                        
-                      ],
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          selectedSection = 'evo';
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: selectedSection == 'evo'
+                            ? Colors.blue
+                            : Colors.grey,
+                      ),
+                      child: const Text('Evo'),
                     ),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          selectedSection = 'details';
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: selectedSection == 'details'
+                            ? Colors.blue
+                            : Colors.grey,
+                      ),
+                      child: const Text('Detalles'),
+                    ),
+                  ],
+                ),
+          
+                const SizedBox(height: 16),
+          
+                // Contenedor que cambia
+                Container(
+                  width: MediaQuery.of(context).size.width*0.999,
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(35),
                   ),
-                ],
-              ),
+                  child: _getSectionContent(),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
-
   }
 
-  // Función para obtener el color según el tipo de Pokémon
-  Color _getTypeColor(String type) {
+  // Método para devolver el contenido según la sección seleccionada
+String? _getImageFromName(String name) {
+  final list = widget.extras?['all_pokemon'] as List<dynamic>?;
+
+  if (list != null) {
+    final pokemon = list.firstWhere(
+      (p) => p['name'] == name,
+      orElse: () => null,
+    );
+
+    return pokemon?['img'];
+  }
+
+  return null;
+}
+String getPokemonImageUrl(String num) {
+  return 'http://www.serebii.net/pokemongo/pokemon/$num.png';
+}
+
+
+Widget _getSectionContent() {
+  if (selectedSection == 'pre_evo') {
+    final prevEvolutionName = widget.extras?['prev_evolution']?[0]?['name'];
+    final prevEvolutionNum = widget.extras?['prev_evolution']?[0]?['num'];
+    final prevEvolutionImage = prevEvolutionNum != null
+        ? getPokemonImageUrl(prevEvolutionNum)
+        : 'https://i.gifer.com/5IPv.gif';
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Pre Evolución: ${prevEvolutionName ?? 'No disponible'}',
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        if (prevEvolutionImage != null)
+          Center(
+            child: Container(
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: CachedNetworkImageProvider(prevEvolutionImage),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
+  } else if (selectedSection == 'evo') {
+    final nextEvolutionName = widget.extras?['next_evolution']?[0]?['name'];
+    final nextEvolutionNum = widget.extras?['next_evolution']?[0]?['num'];
+    final nextEvolutionImage = nextEvolutionNum != null
+        ? getPokemonImageUrl(nextEvolutionNum)
+        : 'https://i.gifer.com/4m3s.gif';
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Evolución: ${nextEvolutionName ?? 'No disponible'}',
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        if (nextEvolutionImage != null)
+          Center(
+            child: Container(
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: CachedNetworkImageProvider(nextEvolutionImage),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
+  } else {
+    // Detalles
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+      Text(
+          'Tipos:',
+           style: TextStyle(
+            fontSize: 23,
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 220, 80, 239),
+       ),
+     ),
+      SizedBox(height: 10),
+      Divider(
+      endIndent: 0.1,
+      color: const Color.fromARGB(255, 30, 31, 32),
+      thickness: 0.7,
+          ),
+       Wrap(
+      spacing: 5,
+      children: widget.extras?['type']
+      .map<Widget>((Type) => Chip(
+       label: Text(
+         Type,
+       style: TextStyle(color: Colors.white),
+      ),
+         backgroundColor: _getTypeColor(Type),
+                                    //backgroundColor: const Color.fromARGB(255, 220, 80, 239),
+        ))
+    .toList(),
+      ),
+     SizedBox(height: 16),
+      Text(
+          'Debilidades:',
+           style: TextStyle(
+            fontSize: 23,
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 220, 80, 239),
+       ),
+     ),
+    SizedBox(height: 10),
+    Divider(
+      endIndent: 0.1,
+      color: const Color.fromARGB(255, 30, 31, 32),
+      thickness: 0.7,
+  ),
+    Wrap(
+      spacing: 5,
+      children: widget.extras?['weaknesses']
+      .map<Widget>((weakness) => Chip(
+       label: Text(
+         weakness,
+       style: TextStyle(color: Colors.white),
+      ),
+    backgroundColor: _getTypeColor(weakness),
+                                    //backgroundColor: const Color.fromARGB(255, 220, 80, 239),
+        ))
+    .toList(),
+   ),
+          SizedBox(height: 16),
+        Text(
+          'Altura: ${widget.extras?['height']}',
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 10),
+        Text(
+          'Peso: ${widget.extras?['weight']}',
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 10),
+        Text(
+          'Candy: ${widget.extras?['candy']}',
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 10),
+        Text(
+          'Candy Count: ${widget.extras?['candy_count'] ?? 'N/A'}',
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 10),
+        Text(
+          'Tiempo de aparición: ${widget.extras?['spawn_time']}',
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+      ],
+    );
+  }
+}
+
+ Color _getTypeColor(String type) {
     switch (type.toLowerCase()) {
       case 'fire':
         return Colors.orange.shade600;

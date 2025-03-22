@@ -76,7 +76,7 @@ class ItemList extends StatelessWidget {
                 _parsedTitle(pokems['name']),
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 15,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
