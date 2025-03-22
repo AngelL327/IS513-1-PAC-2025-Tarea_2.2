@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/foundation.dart';
@@ -36,15 +37,39 @@ class ItemList extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Imagen del Pokémon
-              Expanded(
-                child: Image.network(
-                  pokems['img'],
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) =>
-                      Icon(Icons.error, size: 50, color: Colors.white),
-                ),
+            
+              Stack(
+                children: [
+                  Stack(
+  alignment: Alignment.center,
+  children: [
+    ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: Image.network(
+        'https://www.pngall.com/wp-content/uploads/4/Pokeball-PNG-Free-Download.png',
+        width: 100,
+        height: 100,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) =>
+            Icon(Icons.error, size: 50, color: Colors.white),
+      ),
+    ),
+    ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: Image.network(
+        pokems['img'],
+        width: 100,
+        height: 100,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) =>
+            Icon(Icons.error, size: 50, color: Colors.white),
+      ),
+    ),
+  ],
+)
+                ],
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 5),
               
               // Nombre del Pokémon
               Text(

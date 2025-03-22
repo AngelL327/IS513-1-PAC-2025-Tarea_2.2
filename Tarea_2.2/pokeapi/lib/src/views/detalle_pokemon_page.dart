@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class DetallePokemonPage extends StatefulWidget {
@@ -30,6 +31,7 @@ class _DetallePokemonPageState extends State<DetallePokemonPage> {
         backgroundColor: Colors.green[400],
         leading: IconButton(
           onPressed: () {
+            // se agrego para poder cambiar el color del icono de la flecha
             Navigator.pop(context);
           },
            icon: Icon(Icons.arrow_back),
@@ -43,24 +45,77 @@ class _DetallePokemonPageState extends State<DetallePokemonPage> {
           ),
         ],
       ),
-      backgroundColor: Colors.green[400],
+      backgroundColor: Colors.green[300],
+  
       body: SingleChildScrollView(
+        
               physics: VertLandscape ? AlwaysScrollableScrollPhysics() : NeverScrollableScrollPhysics(),
               padding: EdgeInsets.all(1.0),
               child: Column(
-              
+          
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center(
-                    child: Image.network(
-                      ChangeImage,
-                      height: 230,
-                      fit: BoxFit.cover,
-                    ),
+                  Stack(
+                    children: [
+                      Center(
+                        child: Container(
+                          width: 240,
+                          height: 240,    
+                          decoration: BoxDecoration( 
+                          shape: BoxShape.circle,
+                             
+                          image: DecorationImage(
+                              image: CachedNetworkImageProvider(''),
+                              fit: BoxFit.cover,
+                              
+                            ),
+                           // borderRadius: BorderRadius.circular(16),      
+                            ),
+                          ),
+                      ),
+                      Center(
+                        child: Container(
+                          width: 220,
+                          height: 220,    
+                          decoration: BoxDecoration( 
+                          shape: BoxShape.circle,
+                              
+                          image: DecorationImage(
+                              image: CachedNetworkImageProvider(ChangeImage),
+                              fit: BoxFit.cover,
+                              
+                            ),
+                           // borderRadius: BorderRadius.circular(16),
+                          
+                              
+                            ),
+                          ),
+                      ),
+                       // child: Center(
+                       // child: Image.network(
+                        //    'https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/v1/attachments/delivery/asset/0032398f86ea753194c5eeba97eccda2-1627249600/ExportBackgroundnomoveclound/draw-a-pixel-pokemon-battle-background.gif',
+                        //    height: 190,
+                       //     fit: BoxFit.cover,
+                      //    ),
+                    //    )
+                   //   ),
+                 //     Center(
+                //        child: Image.network(
+                 //         ChangeImage,
+                  //        height: 230,
+                   //       fit: BoxFit.cover,
+                   //     ),
+                  //    ),
+                    ],
                   ),
                   SizedBox(height: 16),
                 
                   // Tipos del Pokémon
+                   Divider(
+                      endIndent: 0.1,
+                       color: const Color.fromARGB(255, 253, 252, 252),
+                         thickness: 0.7,
+                   ),
                   Text(
                     ' Tipos',
                     style: TextStyle(
@@ -69,6 +124,11 @@ class _DetallePokemonPageState extends State<DetallePokemonPage> {
                       color: const Color.fromARGB(255, 248, 245, 245),
                     ),
                   ),
+                  Divider(
+                      endIndent: 0.1,
+                       color: const Color.fromARGB(255, 253, 252, 252),
+                         thickness: 0.7,
+                   ),
                   Wrap(
                     
                     spacing: 5,
@@ -101,7 +161,7 @@ class _DetallePokemonPageState extends State<DetallePokemonPage> {
                           style: TextStyle(
                             fontSize: 23,
                             fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 220, 80, 239),
+                            color: Color.fromARGB(255, 33, 215, 236),
                           ),
                         ),
                         SizedBox(height: 10),
