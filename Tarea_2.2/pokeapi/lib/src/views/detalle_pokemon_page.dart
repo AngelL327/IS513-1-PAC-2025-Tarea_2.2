@@ -190,6 +190,7 @@ String? _getImageFromName(String name) {
 
   return null;
 }
+//como la url tiene terminacion de num se aprovecha ese dato a favor.
 String getPokemonImageUrl(String num) {
   return 'http://www.serebii.net/pokemongo/pokemon/$num.png';
 }
@@ -292,7 +293,7 @@ Widget _getSectionContent() {
        style: TextStyle(color: Colors.white),
       ),
          backgroundColor: _getTypeColor(Type),
-                                    //backgroundColor: const Color.fromARGB(255, 220, 80, 239),
+                                    
         ))
     .toList(),
       ),
@@ -320,7 +321,7 @@ Widget _getSectionContent() {
        style: TextStyle(color: Colors.white),
       ),
     backgroundColor: _getTypeColor(weakness),
-                                    //backgroundColor: const Color.fromARGB(255, 220, 80, 239),
+                                    
         ))
     .toList(),
    ),
