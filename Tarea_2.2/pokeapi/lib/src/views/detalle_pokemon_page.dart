@@ -31,7 +31,7 @@ class _DetallePokemonPageState extends State<DetallePokemonPage> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 7, 218, 229),
         leading: IconButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.pop(context),  // se uso el navigator para cambiar de color la flecha
           icon: const Icon(Icons.arrow_back),
           color: Colors.white,
         ),
@@ -123,7 +123,7 @@ class _DetallePokemonPageState extends State<DetallePokemonPage> {
                             ? Colors.blue
                             : Color(0x88A7FFEB	),
                       ),
-                      child: const Text('Pre Evo'),
+                      child: const Text('    Pre Evo    ', style: TextStyle(color: Color.fromARGB(245, 243, 237, 237)),),
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -136,7 +136,8 @@ class _DetallePokemonPageState extends State<DetallePokemonPage> {
                             ? Colors.blue
                             : Color(0x88A7FFEB	),
                       ),
-                      child: const Text('Evo'),
+                      child: const Text('      Evo      ' , style: TextStyle(color: Color.fromARGB(245, 243, 237, 237)),),
+                      
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -149,7 +150,7 @@ class _DetallePokemonPageState extends State<DetallePokemonPage> {
                             ? Colors.blue
                             : Color(0x88A7FFEB	),
                       ),
-                      child: const Text('Detalles'),
+                      child: const Text('Detalles' , style: TextStyle(color: Color.fromARGB(245, 243, 237, 237)),),
                     ),
                   ],
                 ),

@@ -27,68 +27,54 @@ class _HomePageState extends State<HomePage> {
     final screen2 = MediaQuery.of(context).size.height; // Alto de la pantalla
 
     return SafeArea(
-    child: Container(
+        child: Container(
       color: const Color.fromARGB(213, 0, 0, 0),
       child: Scaffold(
-      
-            appBar: AppBar(
-           backgroundColor: const Color.fromARGB(151, 0, 0, 0),
-            flexibleSpace: Stack(
-              
-              children:[
-                Container(
-        
+        appBar: AppBar(
+          backgroundColor: const Color.fromARGB(151, 0, 0, 0),
+          flexibleSpace: Stack(
+            children: [
+              Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: CachedNetworkImageProvider(
                       'https://i.pinimg.com/736x/8e/8f/6c/8e8f6cc1b7fb4d382e02ff40884f77a7.jpg',
-   
                     ),
-                    fit: BoxFit.cover, 
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
               Container(
-               width: screen1*0.39,
-               
+                width: screen1 * 0.39,
                 decoration: BoxDecoration(
-                  
                   image: DecorationImage(
-                  
                     image: CachedNetworkImageProvider(
-                     'https://i.pinimg.com/originals/bd/cd/20/bdcd20f5411ee5785889542d303ad4cb.png',
+                      'https://i.pinimg.com/originals/bd/cd/20/bdcd20f5411ee5785889542d303ad4cb.png',
                     ),
-                    
                   ),
                 ),
               ),
+            ],
+          ),
+        ),
+        body: Stack(
+          children: [
+            PageView(
+              physics: NeverScrollableScrollPhysics(),
+              controller: pageController,
+              // onPageChanged: (value) => {
+              //   currentIndex = value,
+              //   setState(() {}),
+              // },
+              children: [
+                PokemssFragment(),
+                PerfilFragment(),
               ],
             ),
-          ),
-      
-  
-        body: Stack(
-          children: [  
-                 
-                PageView(
-                          physics: NeverScrollableScrollPhysics(),
-                          controller: pageController,
-                          // onPageChanged: (value) => {
-                          //   currentIndex = value,
-                          //   setState(() {}),
-                          // },
-                          children: [
-                            PokemssFragment(),
-                            PerfilFragment(),
-                          ],
-                        ),
-                      
           ],
         ),
-      
       ),
-    )
-    );
+    ));
   }
 }
 
@@ -118,7 +104,6 @@ class PokemssFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // pokemsProvider.getPokems(); // !  NO SE DEBE HACER AQUI
     print('Creando pokemss fragment');
     return FutureBuilder(
       future: pokemsProvider.getPokems(),
@@ -144,19 +129,18 @@ class PokemssFragment extends StatelessWidget {
         final pokemss = asyncSnapshot.data!;
 
         return GridView.builder(
-         padding: EdgeInsets.all(2.0),
-           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          padding: EdgeInsets.all(2.0),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, // 2 columnas
-             crossAxisSpacing: 1,
-    mainAxisSpacing: 1,
-    childAspectRatio: 1.1, // Ajusta la proporción según necesites
-  ),
-  itemCount: pokemss.length, // Lista de pokemss
-  itemBuilder: (context, index) {
-    return ItemList(pokems: pokemss[index]);
-  },
-);
-
+            crossAxisSpacing: 1,
+            mainAxisSpacing: 1,
+            childAspectRatio: 1.1, // Ajusta la proporción según necesites
+          ),
+          itemCount: pokemss.length, // Lista de pokemss
+          itemBuilder: (context, index) {
+            return ItemList(pokems: pokemss[index]);
+          },
+        );
       },
     );
   }
