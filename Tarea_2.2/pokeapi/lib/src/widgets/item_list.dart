@@ -13,13 +13,11 @@ class ItemList extends StatelessWidget {
     return Card(
       color: _getTypeColor(pokems['type'][0]), // Color según el tipo principal
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15), 
-        side: BorderSide(
-          color: Color(0xFF0D0D1A),
-          width: 2.0,
-        )
-
-      ),
+          borderRadius: BorderRadius.circular(15),
+          side: BorderSide(
+            color: Color(0xFF0D0D1A),
+            width: 2.0,
+          )),
       child: InkWell(
         onTap: () {
           context.goNamed(
@@ -37,40 +35,40 @@ class ItemList extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Imagen del Pokémon
-            
+
               Stack(
                 children: [
                   Stack(
-  alignment: Alignment.center,
-  children: [
-    ClipRRect(
-      borderRadius: BorderRadius.circular(12),
-      child: Image.network(
-        'https://www.pngall.com/wp-content/uploads/4/Pokeball-PNG-Free-Download.png',
-        width: 100,
-        height: 100,
-        fit: BoxFit.cover,
-        errorBuilder: (context, error, stackTrace) =>
-            Icon(Icons.error, size: 50, color: Colors.white),
-      ),
-    ),
-    ClipRRect(
-      borderRadius: BorderRadius.circular(12),
-      child: Image.network(
-        pokems['img'],
-        width: 100,
-        height: 100,
-        fit: BoxFit.cover,
-        errorBuilder: (context, error, stackTrace) =>
-            Icon(Icons.error, size: 50, color: Colors.white),
-      ),
-    ),
-  ],
-)
+                    alignment: Alignment.center,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.network(
+                          'https://www.pngall.com/wp-content/uploads/4/Pokeball-PNG-Free-Download.png',
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) =>
+                              Icon(Icons.error, size: 50, color: Colors.white),
+                        ),
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.network(
+                          pokems['img'],
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) =>
+                              Icon(Icons.error, size: 50, color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
               SizedBox(height: 5),
-              
+
               // Nombre del Pokémon
               Text(
                 _parsedTitle(pokems['name']),
@@ -91,25 +89,44 @@ class ItemList extends StatelessWidget {
   // Función para obtener el color según el tipo de Pokémon
   Color _getTypeColor(String type) {
     switch (type.toLowerCase()) {
-      case 'fire': return Colors.orange.shade600;
-      case 'water': return Colors.blue.shade600;
-      case 'grass': return Colors.green.shade600;
-      case 'electric': return Colors.yellow.shade600;
-      case 'psychic': return Colors.purple.shade600;
-      case 'ice': return Colors.cyan.shade600;
-      case 'dragon': return Colors.indigo.shade600;
-      case 'dark': return Colors.brown.shade600;
-      case 'fairy': return Colors.pink.shade300;
-      case 'normal': return Colors.grey.shade600;
-      case 'fighting': return Colors.red.shade600;
-      case 'flying': return Colors.lightBlue.shade300;
-      case 'poison': return Colors.purple.shade800;
-      case 'ground': return Colors.brown.shade400;
-      case 'rock': return Colors.grey.shade800;
-      case 'bug': return Colors.lightGreen.shade600;
-      case 'ghost': return Colors.deepPurple.shade600;
-      case 'steel': return Colors.blueGrey.shade600;
-      default: return Colors.grey;
+      case 'fire':
+        return Colors.orange.shade600;
+      case 'water':
+        return Colors.blue.shade600;
+      case 'grass':
+        return Colors.green.shade600;
+      case 'electric':
+        return Colors.yellow.shade600;
+      case 'psychic':
+        return Colors.purple.shade600;
+      case 'ice':
+        return Colors.cyan.shade600;
+      case 'dragon':
+        return Colors.indigo.shade600;
+      case 'dark':
+        return Colors.brown.shade600;
+      case 'fairy':
+        return Colors.pink.shade300;
+      case 'normal':
+        return Colors.grey.shade600;
+      case 'fighting':
+        return Colors.red.shade600;
+      case 'flying':
+        return Colors.lightBlue.shade300;
+      case 'poison':
+        return Colors.purple.shade800;
+      case 'ground':
+        return Colors.brown.shade400;
+      case 'rock':
+        return Colors.grey.shade800;
+      case 'bug':
+        return Colors.lightGreen.shade600;
+      case 'ghost':
+        return Colors.deepPurple.shade600;
+      case 'steel':
+        return Colors.blueGrey.shade600;
+      default:
+        return Colors.grey;
     }
   }
 
