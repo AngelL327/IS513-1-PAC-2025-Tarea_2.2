@@ -74,6 +74,7 @@ class _DetallePokemonPageState extends State<DetallePokemonPage> {
                           image: DecorationImage(
                             image: CachedNetworkImageProvider(
                               'https://i.pinimg.com/736x/8c/83/14/8c8314a0e1b76e0c38b7ea04b08eeeee.jpg',
+                              
                             ),
                             fit: BoxFit.cover,
                           ),
@@ -107,7 +108,7 @@ class _DetallePokemonPageState extends State<DetallePokemonPage> {
                 Divider(color: Colors.white, thickness: 0.7),
                 const SizedBox(height: 16),
           
-                // Sección de botones para seleccionar información
+                // Sección de botones 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -120,7 +121,7 @@ class _DetallePokemonPageState extends State<DetallePokemonPage> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: selectedSection == 'pre_evo'
                             ? Colors.blue
-                            : Colors.grey,
+                            : Color(0x88A7FFEB	),
                       ),
                       child: const Text('Pre Evo'),
                     ),
@@ -133,7 +134,7 @@ class _DetallePokemonPageState extends State<DetallePokemonPage> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: selectedSection == 'evo'
                             ? Colors.blue
-                            : Colors.grey,
+                            : Color(0x88A7FFEB	),
                       ),
                       child: const Text('Evo'),
                     ),
@@ -146,7 +147,7 @@ class _DetallePokemonPageState extends State<DetallePokemonPage> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: selectedSection == 'details'
                             ? Colors.blue
-                            : Colors.grey,
+                            : Color(0x88A7FFEB	),
                       ),
                       child: const Text('Detalles'),
                     ),
@@ -192,11 +193,19 @@ String getPokemonImageUrl(String num) {
   return 'http://www.serebii.net/pokemongo/pokemon/$num.png';
 }
 
-
 Widget _getSectionContent() {
   if (selectedSection == 'pre_evo') {
-    final prevEvolutionName = widget.extras?['prev_evolution']?[0]?['name'];
-    final prevEvolutionNum = widget.extras?['prev_evolution']?[0]?['num'];
+    var prevEvolutionName;
+    var prevEvolutionNum;
+    final prevEvolutions = widget.extras?['prev_evolution'] as List<dynamic>?;
+      if (prevEvolutions != null && prevEvolutions.isNotEmpty && prevEvolutions.length > 1) {
+       prevEvolutionName = widget.extras?['prev_evolution']?[1]?['name'];
+       prevEvolutionNum = widget.extras?['prev_evolution']?[1]?['num'];
+      }else{
+       prevEvolutionName = widget.extras?['prev_evolution']?[0]?['name'];
+       prevEvolutionNum = widget.extras?['prev_evolution']?[0]?['num'];
+      }
+
     final prevEvolutionImage = prevEvolutionNum != null
         ? getPokemonImageUrl(prevEvolutionNum)
         : 'https://i.gifer.com/5IPv.gif';
@@ -264,7 +273,7 @@ Widget _getSectionContent() {
            style: TextStyle(
             fontSize: 23,
             fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 220, 80, 239),
+            color: Color.fromARGB(255, 80, 228, 239),
        ),
      ),
       SizedBox(height: 10),
@@ -292,7 +301,7 @@ Widget _getSectionContent() {
            style: TextStyle(
             fontSize: 23,
             fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 220, 80, 239),
+            color: Color.fromARGB(255, 80, 228, 239),
        ),
      ),
     SizedBox(height: 10),

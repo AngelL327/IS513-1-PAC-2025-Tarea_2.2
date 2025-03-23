@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:pokeapi/src/providers/poke_provider.dart';
 import 'package:pokeapi/src/widgets/item_list.dart';
@@ -18,11 +19,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     print('Iniciando home page');
-    
-    // realizar peticiones
-    // comprobar informacion local (sqlite o shared preferences)
-    // comprabar si hay internet
-    // comprobar si el usuario esta logueado
   }
 
   @override
@@ -44,11 +40,11 @@ class _HomePageState extends State<HomePage> {
         
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(
-                      
+                    image: CachedNetworkImageProvider(
                       'https://i.pinimg.com/736x/8e/8f/6c/8e8f6cc1b7fb4d382e02ff40884f77a7.jpg',
+   
                     ),
-                    fit: BoxFit.cover, // Ajusta la imagen al espacio disponible
+                    fit: BoxFit.cover, 
                   ),
                 ),
               ),
@@ -59,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                   
                   image: DecorationImage(
                   
-                    image: NetworkImage(
+                    image: CachedNetworkImageProvider(
                      'https://i.pinimg.com/originals/bd/cd/20/bdcd20f5411ee5785889542d303ad4cb.png',
                     ),
                     
@@ -73,20 +69,7 @@ class _HomePageState extends State<HomePage> {
   
         body: Stack(
           children: [  
-          
-              Container(
                  
-                  decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      '', // Imagen de fondo
-                    ),
-                    fit: BoxFit.cover, 
-                  ),
-                ),
-               ),
-                
-                      
                 PageView(
                           physics: NeverScrollableScrollPhysics(),
                           controller: pageController,
